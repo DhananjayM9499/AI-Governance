@@ -22,9 +22,9 @@ app.get("/api/get", (req, res) => {
 });
 
 // For viewing terms
-app.get("/api/get/term/:term_set_no", (req, res) => {
+app.get("/api/get/term/", (req, res) => {
   const { term_set_no } = req.params;
-  const sqlGetTerms = "SELECT * FROM term_set_taxonomy WHERE term_set_no = ?";
+  const sqlGetTerms = "SELECT * FROM term_set_taxonomy ";
   db.query(sqlGetTerms, term_set_no, (error, result) => {
     if (error) {
       console.log(error);
@@ -44,10 +44,12 @@ app.post("/api/post", (req, res) => {
   });
 });
 //for adding a new Term
-app.post("/api/post/term", (req, res) => {
-  const { term_set } = req.body;
-  const sqlInsert = "INSERT INTO term_set_taxonomy( ?,term) VALUES(?)";
-  db.query(sqlInsert, [term_set], (error, result) => {
+app.post("/api/post/term/:term_set_no", (req, res) => {
+  const { term } = req.body;
+  const { term_set_no } = req.params;
+  const sqlInsert =
+    " INSERT INTO term_set_taxonomy (term, term_set_no) VALUES (?, ?)";
+  db.query(sqlInsert, [term, term_set_no], (error, result) => {
     if (error) {
       console.log(error);
     }
@@ -65,13 +67,14 @@ app.delete("/api/remove/:term_set_id", (req, res) => {
   });
 });
 //for deleting the term
-app.delete("/api/remove/term/:term_set_no", (req, res) => {
-  const { term_set } = req.params;
-  const sqlRemove = "DELETE FROM term_set_taxonomy WHERE term_set_no = ?";
-  db.query(sqlRemove, term_set, (error, result) => {
+app.delete("/api/remove/term/:term_id", (req, res) => {
+  const { term_id } = req.params;
+  const sqlRemove = "DELETE FROM term_set_taxonomy WHERE term_id = ?";
+  db.query(sqlRemove, term_id, (error, result) => {
     if (error) {
       console.log(error);
     }
+    res.send(result);
   });
 });
 //for viewing the specific term set
@@ -86,7 +89,7 @@ app.get("/api/get/:term_set_id", (req, res) => {
   });
 });
 // for viewing the specific term
-app.get("/api/get/term:term_set_no", (req, res) => {
+app.get("/api/get/term/:term_set_no", (req, res) => {
   const { term_set_no } = req.params;
   const sqlGet = "SELECT * FROM term_set_taxonomy WHERE term_set_no = ?";
   db.query(sqlGet, term_set_no, (error, result) => {
@@ -109,12 +112,13 @@ app.put("/api/update/:term_set_id", (req, res) => {
   });
 });
 //for editing the terms
-app.put("/api/update/term/:term_set_no", (req, res) => {
-  const { term_set_no } = req.params;
-  const { terms } = req.body;
+app.put("/api/update/term/:term_id", (req, res) => {
+  const { term_id } = req.params;
+  const { term } = req.body;
   const sqlUpdateTerms =
-    "UPDATE term_set_taxonomy SET terms = ? WHERE term_set_no = ?";
-  db.query(sqlUpdateTerms, [terms, term_set_no], (error, result) => {
+    "UPDATE term_set_taxonomy SET term = ? WHERE term_id = ?";
+
+  db.query(sqlUpdateTerms, [term, term_id], (error, result) => {
     if (error) {
       console.log(error);
     }
