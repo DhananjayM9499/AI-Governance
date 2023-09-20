@@ -1,0 +1,48 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins");
+h1 {
+  color: black;
+}
+.csv-div {
+  background-color: rgb(0, 0, 0);
+}
+.csv-table {
+  border-collapse: collapse;
+  margin: auto;
+  font-size: 0.9em;
+  font-family: "Poppins";
+  max-width: 800px;
+  border-width: 10px;
+  border-radius: 3px;
+  border-color: black;
+}
+.csv-table thead tr {
+  background-color: #3386ff;
+  color: #ffffff;
+  text-align: left;
+}
+
+.csv-table th,
+.csv-table td {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+.csv-table tbody tr:nth-of-type(even) {
+  background-color: #cddfe4;
+}
+.csv-table tbody tr:last-of-type {
+  border-bottom: 2px solid #058daf;
+}
+
+.csv-table th {
+  background-color: #3386ff;
+}
+/* Style the h2 header with class "test-results-header" */
+.test-results-header {
+  color: black;
+}
+
+/* Style the label for the file input with class "file-input-label" */
+.file-input-label {
+  color: black;
+}
