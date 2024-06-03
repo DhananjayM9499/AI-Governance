@@ -1,0 +1,78 @@
+.kanban-board {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+.column {
+  flex: 1;
+  border: 1px solid #3386ff;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.open-column {
+  background-color: #5d94e8;
+}
+
+.in-progress-column {
+  background-color: #ffcc00;
+}
+
+.closed-column {
+  background-color: #66cc66;
+}
+
+.parked-column {
+  background-color: #ff6666;
+}
+
+.aborted-column {
+  background-color: #999999;
+}
+
+.discussion-column {
+  background-color: #ffd966; /* Yellow */
+}
+
+.controlled-column {
+  background-color: #7cb342; /* Green */
+}
+
+.under-observation-column {
+  background-color: #ff7043; /* Orange */
+}
+
+.column h3 {
+  margin-top: 0;
+  text-align: center;
+}
+
+.tasks {
+  min-height: 100px;
+}
+
+.task {
+  background-color: white;
+  border: 1px solid #3386ff;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.task p {
+  margin: 0;
+}
+
+.kanban-board {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+}
+
+.column {
+  flex: 1;
+  border: 1px solid #3386ff;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 0 10px;
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Run Python Code</title>
+</head>
+
+<body>
+  <input type="text" id="promptInput" placeholder="Enter prompt">
+  <button id="runButton">Run Python Code</button>
+  <pre id="output"></pre>
+
+  <script>
+    document.getElementById('runButton').addEventListener('click', async () => {
+      const prompt = document.getElementById('promptInput').value;
+      const data = { prompt };
+
+      try {
+        const response = await fetch('/run-code', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to execute Python code');
+        }
+
+        const result = await response.json();
+        document.getElementById('output').textContent = JSON.stringify(result, null, 2);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    });
+  </script>
+</body>
+
+</html>

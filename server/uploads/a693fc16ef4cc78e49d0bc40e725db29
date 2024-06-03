@@ -1,0 +1,5 @@
+controlname,thrustarea,controlwt,subcontrolname,groupname,subcontrolwt,evidence
+Model Evaluation,Bias and Fairness,8,Demographic parity assessment,AI Ethics Framework,8,evidence
+Model Evaluation,Bias and Fairness,4,Bias detection and mitigation measures,AI Ethics Framework,4,evidence
+Explainability,Transparency,6,Model interpretability,AI Ethics Framework,6,evidence
+Explainability,Transparency,9,User-friendly explanations,AI Ethics Framework,9,evidence

@@ -1,0 +1,26 @@
+.fishbone-diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.fish-head {
+  background-color: #ffcc66;
+  padding: 10px 20px;
+  border-radius: 50% 50% 0 0;
+  margin-bottom: 20px;
+}
+
+.bones {
+  display: flex;
+}
+
+.bone {
+  width: 100px;
+  padding: 10px;
+  margin: 0 10px;
+  background-color: #99ccff;
+  border-radius: 10px;
+}
+/*******************************************************/

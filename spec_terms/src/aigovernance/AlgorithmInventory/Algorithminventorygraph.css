@@ -1,0 +1,18 @@
+.grid-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.grid-row {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.mixed-chart {
+  margin-bottom: 20px; /* Adjust spacing between charts if needed */
+}
+.app {
+  margin-top: 1cm;
+  margin-bottom: 1cm;
+}

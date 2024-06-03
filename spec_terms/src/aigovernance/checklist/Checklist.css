@@ -1,0 +1,14 @@
+.resource-tag {
+  display: inline-block;
+  background-color: #007bff;
+  color: white;
+  padding: 3px 6px;
+  margin-right: 5px;
+  border-radius: 5px;
+  font-size: 0.8em;
+}
+
+.resource-tag:hover {
+  cursor: pointer;
+  background-color: #0056b3;
+}
