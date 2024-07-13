@@ -38,6 +38,12 @@ const Header = () => {
               <a href="/datalineage">Data Lineage</a>
             </li>
             <li>
+              <a href="/knowledge-map">Knowledge Map</a>
+            </li>
+            <li>
+              <a href="/mindmap">Mind Map</a>
+            </li>
+            <li>
               <a href="#">{"<"}AI </a>
               <ul>
                 <li>

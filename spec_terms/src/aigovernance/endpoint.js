@@ -11,7 +11,7 @@ export const GET_SPECIFIC_ALGORITHM_INVENTORY = (projectcode) =>
 
 export const ADD_ALGORITHM_INVENTORY = `${BASE_URL}api/algorithminventorypost`;
 export const UPDATE_ALGORITHM_INVENTORY = (algorithminventoryid) =>
-  `${BASE_URL}api/algorithminventoryupdate/${algorithminventoryid}   `;
+  `${BASE_URL}api/algorithminventoryupdate/${algorithminventoryid}`;
 export const GET_ALGORITHM_INVENTORY = `${BASE_URL}api/algorithminventoryget`;
 export const DELETE_ALGORITHM_INVENTORY = (algorithminventoryid) =>
   `${BASE_URL}api/algorithminventorydelete/${algorithminventoryid}`;
@@ -454,3 +454,7 @@ export const GET_NMAP_DETAILS = `${BASE_URL}api/nmap-scan`;
 /*********************DashBoard*******************/
 export const GET_DASHBOARD_API = `${BASE_URL}api/dashboard`;
 export const GET_DASHBOARDDETAIL_API = `${BASE_URL}api/dashboard/detail`;
+/************************************************** */
+export const UPLOAD_CONTROL_API = `${BASE_URL}upload`;
+export const UPLOAD_THEME_API = `${BASE_URL}uploadtheme`;
+export const GET_KNOWLEDGEMAP_API = `${BASE_URL}knowledgemap`;

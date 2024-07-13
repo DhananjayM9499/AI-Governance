@@ -3,7 +3,7 @@ import axios from "axios";
 import * as API from "../endpoint";
 import { Pie } from "react-chartjs-2";
 import ScorecardBarGraph from "./ScorecardBarGraph";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import Footer from "../pages/footer";
 import Header from "../pages/header";
 import "./ScoreCardTable.css";
@@ -33,8 +33,8 @@ const ScoreCardTable = () => {
   const [projectName, setProject] = useState([]);
   const [groupName, setGroupName] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
-  const { resultid } = useParams();
-  const [isVisible, setIsVisible] = useState(false);
+  const { resultid, organization } = useParams();
+  const [isVisible, setIsVisible] = useState(true);
   const [isVisible1, setIsVisible1] = useState(false);
   const [isVisible2, setIsVisible2] = useState(false);
   const [pieChartData, setPieChartData] = useState([]);
@@ -71,7 +71,7 @@ const ScoreCardTable = () => {
     const fetchData = async () => {
       try {
         const queryParams = {
-          organization: state.organization,
+          organization: state.organization || organization,
           responsibilitygroup: state.responsibilitygroup,
           responsibilitycenter: state.responsibilitycenter,
           projectname: state.projectname,
@@ -254,12 +254,15 @@ const ScoreCardTable = () => {
                 style={{ fontFamily: "Poppins" }}
                 id="organization"
                 name="organization"
-                value={state.organization}
+                value={state.organization || organization}
                 onChange={handleInputChange}
               >
                 <option value="">Organization </option>
                 {filterUniqueGroupNames(organizationComp).map((comp) => (
-                  <option key={comp.resultid} value={comp.organization}>
+                  <option
+                    key={comp.resultid}
+                    value={comp.organization || organization}
+                  >
                     {comp.organization}
                   </option>
                 ))}

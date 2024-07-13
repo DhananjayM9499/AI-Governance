@@ -6,16 +6,16 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import * as API from "../endpoint";
 
-const Company = () => {
+const Dataset = () => {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 3;
+  const itemsPerPage = 4;
 
   const loadData = async () => {
     try {
-      const response = await axios.get(API.GET_COMPANY_API);
+      const response = await axios.get(API.GET_DATASET_API);
       const sortedData = response.data.sort(
-        (a, b) => b.companyid - a.companyid
+        (a, b) => b.datasetid - a.datasetid
       );
       setData(sortedData);
     } catch (error) {
@@ -26,22 +26,22 @@ const Company = () => {
   useEffect(() => {
     loadData();
   }, []);
-  const deleteCompany = async (companyid) => {
+  const deleteDataset = async (datasetid) => {
     if (window.confirm("Are you sure?")) {
       try {
-        const response = await axios.delete(API.DELETE_COMPANY_API(companyid));
+        const response = await axios.delete(API.DELETE_DATASET_API(datasetid));
         if (response.status === 200) {
-          toast.success("Company Deleted Successfully");
+          toast.success("Data Set Deleted Successfully");
           loadData();
         }
       } catch (error) {
         if (error.response && error.response.status === 400) {
           toast.error(
-            "Cannot delete Company as there are associates present ."
+            "Cannot delete Data set as there are associates present ."
           );
         } else {
           console.log(error);
-          toast.error("An error occurred while deleting Company.");
+          toast.error("An error occurred while deleting Data Set.");
         }
       }
     }
@@ -58,25 +58,18 @@ const Company = () => {
     <div style={{ fontFamily: "Poppins" }}>
       <Header />
       <div style={{ marginTop: "1cm" }}>
-        <h1 style={{ textAlign: "center" }}>AI Governance</h1>
-        <div
-          style={{
-            marginTop: "auto",
-            paddingBottom: "100px",
-            textAlign: "center",
-          }}
-        >
-          <Link to="/addcompany">
-            <button className="btn btn-contact">Add Organization</button>
+        <h1>DATA SET </h1>
+        <div style={{ marginTop: "auto", paddingBottom: "100px" }}>
+          <Link to="/adddataset">
+            <button className="btn btn-contact">Add Data Set</button>
           </Link>
           <table className="styled-table">
             <thead>
               <tr>
                 <th style={{ textAlign: "center" }}>No.</th>
-                <th style={{ textAlign: "center" }}>Company Name</th>
-                <th style={{ textAlign: "center" }}>Contact Name</th>
-                <th style={{ textAlign: "center" }}>Contact Email</th>
-                <th style={{ textAlign: "center" }}>Contact Phone</th>
+                <th style={{ textAlign: "center" }}>Data Set Name</th>
+                <th style={{ textAlign: "center" }}>Data Set Description </th>
+
                 <th style={{ textAlign: "center" }}>Actions</th>
               </tr>
             </thead>
@@ -85,26 +78,19 @@ const Company = () => {
                 return (
                   <tr key={item.id}>
                     <th scope="row">{index + indexOfFirstItem + 1}</th>
-                    <td>{item.organization}</td>
-                    <td>{item.contactname}</td>
-                    <td>{item.contactemail}</td>
-                    <td>{item.contactphone}</td>
+                    <td>{item.datasetname}</td>
+                    <td>{item.datasetdescription}</td>
+
                     <td>
-                      <Link to={`/editcompany/${item.companyid}`}>
+                      <Link to={`/datasetupdate/${item.datasetid}`}>
                         <button className="btn btn-edit">Edit</button>
                       </Link>
                       <button
                         className="btn btn-delete"
-                        onClick={() => deleteCompany(item.companyid)}
+                        onClick={() => deleteDataset(item.datasetid)}
                       >
                         Delete
                       </button>
-                      <Link to={`/project/${item.companyid}`}>
-                        <button className="btn btn-view">Project</button>
-                      </Link>
-                      <Link to={`/scorecard/${item.organization}`}>
-                        <button className="btn btn-view">Score Card</button>
-                      </Link>
                     </td>
                   </tr>
                 );
@@ -131,4 +117,4 @@ const Company = () => {
   );
 };
 
-export default Company;
+export default Dataset;

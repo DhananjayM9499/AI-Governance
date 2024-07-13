@@ -5,7 +5,6 @@ import Footer from "../pages/footer";
 import { toast } from "react-toastify";
 import axios from "axios";
 import * as API from "../endpoint";
-//import ExcelUploaderPopup from "./ExcelUploaderPopup";
 import FileUploader from "../ExcelUpload/FileUploader";
 
 const Governancecontrol = () => {
@@ -13,6 +12,7 @@ const Governancecontrol = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
   const [showUploadPopup, setShowUploadPopup] = useState(false);
+
   const loadData = async () => {
     try {
       const response = await axios.get(API.GET_CONTROL_API);
@@ -22,32 +22,34 @@ const Governancecontrol = () => {
       console.error("Error loading data:", error);
     }
   };
+
   const handleUpload = (data) => {
-    // Handle uploaded data here
     console.log("Uploaded data:", data);
   };
+
   const handleUploadButtonClick = () => {
-    console.log("Upload button clicked");
     setShowUploadPopup(true);
   };
+
   useEffect(() => {
     loadData();
   }, []);
+
   const deleteCompany = async (controlid) => {
     if (window.confirm("Are you sure?")) {
       try {
         const response = await axios.delete(API.DELETE_CONTROL_API(controlid));
         if (response.status === 200) {
-          toast.success("control Deleted Successfully");
+          toast.success("Control Deleted Successfully");
           loadData();
         }
       } catch (error) {
         if (error.response && error.response.status === 400) {
           toast.error(
-            "Cannot delete Governance Sub-Control as there are associates present ."
+            "Cannot delete Governance Sub-Control as there are associates present."
           );
         } else {
-          console.log(error);
+          console.error(error);
           toast.error(
             "An error occurred while deleting Governance Sub-Control."
           );
@@ -63,6 +65,7 @@ const Governancecontrol = () => {
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+
   return (
     <div>
       <Header />
@@ -95,8 +98,8 @@ const Governancecontrol = () => {
                 <th scope="row">{index + indexOfFirstItem + 1}</th>
                 <td>{item.groupname}</td>
                 <td>{item.thrustarea}</td>
-                <td>{item.subcontrolname}</td>
                 <td>{item.controlname}</td>
+                <td>{item.subcontrolname}</td>
                 <td>{item.controlwt}</td>
                 <td>{item.evidence}</td>
                 <td>

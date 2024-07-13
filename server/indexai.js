@@ -58,43 +58,43 @@ const db = new pg.Pool({
 // // Sync database (no need to sync in this case since the table already exists)
 // // sequelize.sync();
 
-// // Signup route
-// app.post("/signup", async (req, res) => {
-//   const { email, password } = req.body;
-//   try {
-//     const hashedPassword = await bcrypt.hash(password, 10);
-//     const newCustomer = await Customer.create({
-//       email,
-//       password: hashedPassword,
-//     });
-//     res.status(201).send("Customer created");
-//   } catch (err) {
-//     console.error(err);
-//     res.status(400).send("Error creating customer");
-//   }
-// });
+// Signup route
+app.post("/signup", async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newCustomer = await Customer.create({
+      email,
+      password: hashedPassword,
+    });
+    res.status(201).send("Customer created");
+  } catch (err) {
+    console.error(err);
+    res.status(400).send("Error creating customer");
+  }
+});
 
-// // Login route
-// app.post("/login", async (req, res) => {
-//   const { email, password } = req.body;
-//   try {
-//     const customer = await Customer.findOne({ where: { email } });
-//     if (!customer) {
-//       return res.status(400).send("Customer not found");
-//     }
-//     const isMatch = await bcrypt.compare(password, customer.password);
-//     if (!isMatch) {
-//       return res.status(400).send("Invalid credentials");
-//     }
-//     const token = jwt.sign({ customerId: customer.id }, JWT_SECRET, {
-//       expiresIn: "1h",
-//     });
-//     res.json({ token });
-//   } catch (err) {
-//     console.error(err);
-//     res.status(400).send("Error logging in");
-//   }
-// });
+// Login route
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const customer = await Customer.findOne({ where: { email } });
+    if (!customer) {
+      return res.status(400).send("Customer not found");
+    }
+    const isMatch = await bcrypt.compare(password, customer.password);
+    if (!isMatch) {
+      return res.status(400).send("Invalid credentials");
+    }
+    const token = jwt.sign({ customerId: customer.id }, JWT_SECRET, {
+      expiresIn: "1h",
+    });
+    res.json({ token });
+  } catch (err) {
+    console.error(err);
+    res.status(400).send("Error logging in");
+  }
+});
 
 // // Protected route example
 // app.get("/protected", (req, res) => {
@@ -988,7 +988,43 @@ app.get("/node-api/controlGovernance/api", (req, res) => {
     res.send(result.rows);
   });
 });
+/**************************************************** */
+app.get("/node-api/knowledgemap", (req, res) => {
+  const sqlGet = "SELECT * FROM ai.governancecontrol"; // Removed DISTINCT
 
+  db.query(sqlGet, (error, result) => {
+    if (error) {
+      console.error(error);
+      return res
+        .status(500)
+        .send("An error occurred while fetching the Governance control.");
+    }
+
+    const rows = result.rows;
+    const groupedData = rows.reduce((acc, item) => {
+      if (!acc[item.controlname]) {
+        acc[item.controlname] = {
+          groupname: item.groupname,
+          thrustarea: item.thrustarea,
+          controlname: item.controlname,
+          controlwt: item.controlwt,
+          subcontrols: [],
+        };
+      }
+      acc[item.controlname].subcontrols.push({
+        subcontrolname: item.subcontrolname,
+        subcontrolwt: item.subcontrolwt,
+        evidence: item.evidence,
+      });
+      return acc;
+    }, {});
+
+    const controlData = Object.values(groupedData);
+    res.send(controlData);
+  });
+});
+
+/******************************************************* */
 //for deleting the control
 app.delete("/node-api/controlGovernanceRemove/:controlid", (req, res) => {
   const { controlid } = req.params;

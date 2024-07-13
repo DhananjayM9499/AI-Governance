@@ -132,7 +132,13 @@ import AIChecklist from "./aigovernance/AlgorithmInventory/AIChecklist";
 import Login from "./Login/Login";
 import Signup from "./Login/Signup";
 import DataTable from "./aigovernance/test";
+import KnowledgeMap from "./aigovernance/Knowledgemap/KnowledgeMap";
+import Test from "./aigovernance/test";
+import MindMap from "./aigovernance/Knowledgemap/MindMap";
+import AIRegulationMindMap from "./aigovernance/Knowledgemap/AIRegulationMindMap";
 function App() {
+  
+
   return (
     <Router>
       <div className="App">
@@ -531,7 +537,7 @@ function App() {
             element={<AuditStatus />}
           />
           {/*------------------------Score Card----------------------------*/}
-          <Route path="/scorecard" element={<ScoreCardTable />} />
+          <Route path="/scorecard/:organization" element={<ScoreCardTable />} />
           <Route path="/scorecardbargraph" element={<ScorecardBarGraph />} />
           <Route
             path="/scorecardsubcontrol"
@@ -567,11 +573,14 @@ function App() {
           <Route path="/excelupload" element={<RagChatComponent />} />
           <Route path="/themeupload" element={<UploadComponent />} />
           <Route path="/aichecklist" element={<AIChecklist />} />
+          <Route path="/knowledge-map" element={<KnowledgeMap />} />
 
           {/*************LOGIN******************************* */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/test" element={<DataTable />} />
+          <Route path="/test" element={<Test />} />
+          <Route path="/mindmap" element={<MindMap />} />
+          <Route path="/aimindmap" element={<AIRegulationMindMap />} />
         </Routes>
       </div>
     </Router>
